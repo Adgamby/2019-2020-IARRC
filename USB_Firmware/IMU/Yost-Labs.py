@@ -23,5 +23,16 @@ End TEST"""
 
 #TODO Set filter paramters
 
+#Tare with current orientation command
+IMU.write(b':96\n')
+#Read tare command 
+
 #TODO Read Euler Angles & Rot Matrix
 
+#Read Eul command - Tared
+IMU.write(b':1\n')
+print(IMU.readline())
+
+#Read Rot Matrix - Tared
+IMU.write(b':2\n')
+print(IMU.readline())
