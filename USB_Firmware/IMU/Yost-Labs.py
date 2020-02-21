@@ -8,38 +8,38 @@ import serial
 
 #USB_Device Class Declaratoin
 class USB_Device:
-    def __init__(self,Port,Baudrate):
-        IMU = serial.Serial()
-        IMU.baudrate = Baudrate
-        IMU.port = Port
-        IMU.open()
+	def __init__(self,Port,Baudrate):
+		self.IMU = serial.Serial()
+		self.IMU.baudrate = Baudrate
+		self.IMU.port = Port
+		self.IMU.open()
 
-    def IMU_Tare():
-    #Tare with current orientation command
-       IMU.open()#Open Port in case it was closed
-       IMU.write(b':96\n')
-       IMU.close()#Close Port After Operation is done
+	def IMU_Tare(self):
+    	#Tare with current orientation command
+		self.IMU.open()#Open Port in case it was closed
+		self.IMU.write(b':96\n')
+		self.IMU.close()#Close Port After Operation is done
 
-    def IMU_ReadTare():
-    #Read tare command (returned as a rot matrix)
-        IMU.open()#Open Port in case it was closed
-        IMU.write(b':129\n')
-        return IMU.readline() #TODO Publish over ZMQ
-        #IMU.close()#Close Port After we are done
+	def IMU_ReadTare(self):
+    	#Read tare command (returned as a rot matrix)
+		self.IMU.open()#Open Port in case it was closed
+		self.IMU.write(b':129\n')
+		return IMU.readline() #TODO Publish over ZMQ
+        	#IMU.close()#Close Port After we are done
 
-    def IMU_Read_EUL():
-    #Read Eul command - Tared
-        IMU.open()#Open Port in case it was closed
-        IMU.write(b':1\n')
-        print(IMU.readline()) #TODO Publish over ZMQ
-        IMU.close()#Close Port
+	def IMU_Read_EUL():
+    	#Read Eul command - Tared
+		IMU.open()#Open Port in case it was closed
+		IMU.write(b':1\n')
+		print(IMU.readline()) #TODO Publish over ZMQ
+		IMU.close()#Close Port
 
-    def IMU_Read_ROT():
-    #Read Rot Matrix - Tared
-        IMU.open()#Open Port in case it was closed
-        IMU.write(b':2\n')
-        print(IMU.readline()) #TODO Publish over ZMQ
-        IMU.close()#Close Port
+	def IMU_Read_ROT():
+	#Read Rot Matrix - Tared
+		IMU.open()#Open Port in case it was closed
+		IMU.write(b':2\n')
+		print(IMU.readline()) #TODO Publish over ZMQ
+		IMU.close()#Close Port
 """TEST
 IMU = serial.Serial()
 IMU.port = '/dev/ttyUSB0'
@@ -53,10 +53,10 @@ print(x)
 
 #End TEST"""
 
-IMU = USB_Device('/dev/ttyUSB0',115200)
+IMU =  USB_Device('/dev/ttyUSB0',115200)
 
 while True:
-    IMU.IMU_Tare
+    IMU.IMU_Tare()
     print(IMU.IMU_ReadTare())
     #IMU.IMU_Read_EUL
     #IMU.IMU_Read_ROT
